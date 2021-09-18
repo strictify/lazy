@@ -1,0 +1,33 @@
+{
+    "name": "strictify/lazy",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zmitic",
+            "email": "mitke013@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "vimeo/psalm": "dev-master",
+        "psalm/plugin-symfony": "^2.4",
+        "phpunit/phpunit": "^9.5",
+        "codeception/codeception": "^4.1",
+        "weirdan/codeception-psalm-module": "^0.13.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Strictify\\Lazy\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Strictify\\Lazy\\Tests\\": "tests/unit",
+            "Strictify\\Lazy\\Tests\\Fixture\\": "tests/fixtures"
+        }
+    }
+}
