@@ -1,0 +1,32 @@
+name: Static analysis
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          coverage: none
+          extensions: mbstring, intl
+
+      - name: Download dependencies
+        run: composer update --no-interaction --no-progress
+
+      - name: Download Psalm
+        run: composer bin psalm update --no-interaction --no-progress
+
+      - name: Execute Psalm
+        run: vendor/bin/psalm.phar --no-progress --output-format=github
