@@ -14,15 +14,15 @@ use Strictify\Lazy\Contract\LazyIterableInterface;
 class ResolvedIterable implements LazyIterableInterface
 {
     /**
-     * @param iterable<array-key, T> $resolved
+     * @param iterable<array-key, T> $resolver
      */
-    public function __construct(private $resolved)
+    public function __construct(private $resolver)
     {
     }
 
     public function getValues(): iterable
     {
-        return $this->resolved;
+        return $this->resolver;
     }
 
     public function getIterator(): iterable
