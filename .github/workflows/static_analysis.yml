@@ -25,8 +25,5 @@ jobs:
       - name: Download dependencies
         run: composer update --no-interaction --no-progress
 
-      - name: Download Psalm
-        run: composer bin psalm update --no-interaction --no-progress
-
       - name: Execute Psalm
-        run: vendor/bin/psalm.phar --no-progress --output-format=github
+        run: vendor/bin/psalm --no-progress --output-format=github --shepherd
