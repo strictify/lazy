@@ -1,4 +1,4 @@
-Feature: LazyList
+Feature: LazyIterable
   Background:
     Given I have the following config
       """
@@ -16,14 +16,14 @@ Feature: LazyList
 
 declare(strict_types=1);
 
-use Strictify\Lazy\LazyList;
+use Strictify\Lazy\LazyIterable;
 
 /** @return list<string> */
 function slow() {
   return ['a', 'b', 'c'];
 }
 
-$lazy = new LazyList(fn() => slow());
+$lazy = new LazyIterable(fn() => slow());
 /** @psalm-trace $lazy */
 echo 123;
 
@@ -40,7 +40,7 @@ foreach($lazy as $key => $value) {
     When I run Psalm
     Then I see these errors
       | Type  | Message |
-      | Trace | $lazy: Strictify\Lazy\LazyList<string> |
+      | Trace | $lazy: Strictify\Lazy\LazyIterable<string> |
       | Trace | $values: iterable<array-key, string>   |
       | Trace | $key: array-key                        |
       | Trace | $value: string                         |

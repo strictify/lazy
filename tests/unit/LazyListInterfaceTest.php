@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Strictify\Lazy\Tests;
 
-use Strictify\Lazy\LazyList;
+use Strictify\Lazy\LazyIterable;
 use PHPUnit\Framework\TestCase;
-use Strictify\Lazy\ResolvedList;
+use Strictify\Lazy\ResolvedIterable;
 
 class LazyListInterfaceTest extends TestCase
 {
     public function testLazyList(): void
     {
-        $lazy = new LazyList(fn() => [1, 2, 4]);
+        $lazy = new LazyIterable(fn() => [1, 2, 4]);
         self::assertFalse($lazy->isResolved());
 
         self::assertEquals([1, 2, 4], $lazy->getValues());
@@ -21,7 +21,7 @@ class LazyListInterfaceTest extends TestCase
 
     public function testResolvedValue(): void
     {
-        $resolved = new ResolvedList([1, 2, 4]);
+        $resolved = new ResolvedIterable([1, 2, 4]);
         self::assertEquals([1, 2, 4], $resolved->getValues());
     }
 }

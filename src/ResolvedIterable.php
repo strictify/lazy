@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Strictify\Lazy;
 
-use Strictify\Lazy\Contract\LazyListInterface;
+use Strictify\Lazy\Contract\LazyIterableInterface;
 
 /**
- * @template-covariant TValue
+ * @template-covariant T
  *
- * @implements LazyListInterface<TValue>
+ * @implements LazyIterableInterface<T>
  */
-class ResolvedList implements LazyListInterface
+class ResolvedIterable implements LazyIterableInterface
 {
     /**
-     * @param iterable<array-key, TValue> $resolved
+     * @param iterable<array-key, T> $resolved
      */
     public function __construct(private $resolved)
     {

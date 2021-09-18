@@ -6,25 +6,22 @@ namespace Strictify\Lazy;
 
 use Closure;
 use Stringable;
-use Strictify\Lazy\Store\Store;
+use Strictify\Lazy\Contract\AbstractLazy;
 use Strictify\Lazy\Contract\LazyValueInterface;
 
 /**
- * @template-covariant  T
+ * @template-covariant T
+ *
+ * @extends AbstractLazy<T>
  *
  * @implements LazyValueInterface<T>
  */
-class LazyValue implements LazyValueInterface, Stringable
+class LazyValue extends AbstractLazy implements LazyValueInterface, Stringable
 {
     /**
-     * @var ?Store<T>
+     * @param Closure(): T $resolver
      */
-    private ?Store $store = null;
-
-    /**
-     * @param Closure(): T $callable
-     */
-    public function __construct(private Closure $callable)
+    public function __construct(private Closure $resolver)
     {
     }
 
@@ -33,29 +30,13 @@ class LazyValue implements LazyValueInterface, Stringable
         return (string)$this->getValue();
     }
 
-    /**
-     * @return T
-     */
     public function getValue()
     {
-        $store = $this->store ??= $this->doGetStore();
-
-        return $store->fetch();
+        return $this->getResolvedValue();
     }
 
-    public function isResolved(): bool
+    protected function getResolver(): Closure
     {
-        return (bool)$this->store;
-    }
-
-    /**
-     * @return Store<T>
-     */
-    private function doGetStore(): Store
-    {
-        $callable = $this->callable;
-        $value = $callable();
-
-        return new Store($value);
+        return $this->resolver;
     }
 }

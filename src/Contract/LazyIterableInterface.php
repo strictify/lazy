@@ -7,14 +7,14 @@ namespace Strictify\Lazy\Contract;
 use IteratorAggregate;
 
 /**
- * @template-covariant TValue
+ * @template-covariant T
  *
- * @extends IteratorAggregate<array-key, TValue>
+ * @extends IteratorAggregate<array-key, T>
  */
-interface LazyListInterface extends IteratorAggregate
+interface LazyIterableInterface extends IteratorAggregate
 {
     /**
-     * @return iterable<array-key, TValue>
+     * @return iterable<array-key, T>
      */
     public function getValues(): iterable;
 

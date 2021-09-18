@@ -1,4 +1,4 @@
-Feature: Use case for LazyList
+Feature: Use case for LazyIterable
   Background:
     Given I have the following config
       """
@@ -16,15 +16,15 @@ Feature: Use case for LazyList
 
 declare(strict_types=1);
 
-use Strictify\Lazy\LazyList;
-use Strictify\Lazy\ResolvedList;
-use Strictify\Lazy\Contract\LazyListInterface;
+use Strictify\Lazy\LazyIterable;
+use Strictify\Lazy\ResolvedIterable;
+use Strictify\Lazy\Contract\LazyIterableInterface;
 
 class View
 {
     /**
-     * @param LazyListInterface<Exception> $first
-     * @param LazyListInterface<Exception> $second
+     * @param LazyIterableInterface<Exception> $first
+     * @param LazyIterableInterface<Exception> $second
      */
     public function __construct(
         private $first,
@@ -33,8 +33,8 @@ class View
 }
 
 new View(
-    first: new LazyList(fn() => [new Exception(), new RuntimeException()]),
-    second: new ResolvedList([new Exception(), new RuntimeException()]),
+    first: new LazyIterable(fn() => [new Exception(), new RuntimeException()]),
+    second: new ResolvedIterable([new Exception(), new RuntimeException()]),
 );
       """
     When I run Psalm
