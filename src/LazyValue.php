@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Strictify\Lazy;
 
 use Closure;
+use Strictify\Lazy\Store\Store;
+use Strictify\Lazy\Contract\LazyValueInterface;
 
 /**
  * @template-covariant  T
@@ -37,7 +39,7 @@ class LazyValue implements LazyValueInterface
     {
         $store = $this->store ??= $this->doGetStore();
 
-        return $store->getValue();
+        return $store->fetch();
     }
 
     public function isResolved(): bool

@@ -5,32 +5,38 @@ declare(strict_types=1);
 namespace Strictify\Lazy;
 
 use Closure;
+use Strictify\Lazy\Store\Store;
+use Strictify\Lazy\Contract\LazyListInterface;
 
 /**
- * @template-covariant  T
+ * @template-covariant TValue
+ *
+ * @implements LazyListInterface<TValue>
  */
-abstract class AbstractLazy implements LazyValueInterface
+class LazyList implements LazyListInterface
 {
     /**
-     * @var ?Store<T>
+     * @var ?Store<iterable<array-key, TValue>>
      */
     private ?Store $store = null;
 
     /**
-     * @param Closure(): T $callable
+     * @param Closure(): iterable<array-key, TValue> $callable
      */
     public function __construct(private Closure $callable)
     {
     }
 
-    /**
-     * @return T
-     */
-    public function getValue()
+    public function getIterator(): iterable
+    {
+        yield from $this->getValues();
+    }
+
+    public function getValues(): iterable
     {
         $store = $this->store ??= $this->doGetStore();
 
-        return $store->getValue();
+        return $store->fetch();
     }
 
     public function isResolved(): bool
@@ -39,7 +45,7 @@ abstract class AbstractLazy implements LazyValueInterface
     }
 
     /**
-     * @return Store<T>
+     * @return Store<iterable<array-key, TValue>>
      */
     private function doGetStore(): Store
     {

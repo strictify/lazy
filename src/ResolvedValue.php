@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Strictify\Lazy;
 
+use Strictify\Lazy\Contract\LazyValueInterface;
+
 /**
  * @template T
  *

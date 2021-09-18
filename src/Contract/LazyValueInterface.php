@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Strictify\Lazy;
+namespace Strictify\Lazy\Contract;
 
 /**
  * @template-covariant  T

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Strictify\Lazy;
+namespace Strictify\Lazy\Store;
 
 /**
  * This should not be used outside of LazyValue class.
@@ -26,7 +26,7 @@ class Store
     /**
      * @return T
      */
-    public function getValue()
+    public function fetch()
     {
         return $this->value;
     }
