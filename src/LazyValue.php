@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Strictify\Lazy;
 
 use Closure;
+use Stringable;
 use Strictify\Lazy\Store\Store;
 use Strictify\Lazy\Contract\LazyValueInterface;
 
@@ -13,7 +14,7 @@ use Strictify\Lazy\Contract\LazyValueInterface;
  *
  * @implements LazyValueInterface<T>
  */
-class LazyValue implements LazyValueInterface
+class LazyValue implements LazyValueInterface, Stringable
 {
     /**
      * @var ?Store<T>
