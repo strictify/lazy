@@ -14,7 +14,6 @@
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "dev-master",
-        "psalm/plugin-symfony": "^2.4",
         "phpunit/phpunit": "^9.5",
         "codeception/codeception": "^4.1",
         "weirdan/codeception-psalm-module": "^0.13.1"

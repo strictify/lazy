@@ -4,27 +4,19 @@ declare(strict_types=1);
 
 namespace Strictify\Lazy;
 
-use Closure;
 use Stringable;
-use Strictify\Lazy\Contract\AbstractLazy;
 use Strictify\Lazy\Contract\LazyValueInterface;
+use Strictify\Lazy\Contract\AbstractResolvable;
 
 /**
  * @template-covariant T
  *
- * @extends AbstractLazy<T>
+ * @extends AbstractResolvable<T>
  *
  * @implements LazyValueInterface<T>
  */
-class LazyValue extends AbstractLazy implements LazyValueInterface, Stringable
+class LazyValue extends AbstractResolvable implements LazyValueInterface, Stringable
 {
-    /**
-     * @param Closure(): T $resolver
-     */
-    public function __construct(private Closure $resolver)
-    {
-    }
-
     public function __toString(): string
     {
         return (string)$this->getValue();
@@ -33,10 +25,5 @@ class LazyValue extends AbstractLazy implements LazyValueInterface, Stringable
     public function getValue()
     {
         return $this->getResolvedValue();
-    }
-
-    protected function getResolver(): Closure
-    {
-        return $this->resolver;
     }
 }

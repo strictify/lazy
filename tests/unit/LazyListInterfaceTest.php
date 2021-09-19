@@ -8,6 +8,9 @@ use Strictify\Lazy\LazyIterable;
 use PHPUnit\Framework\TestCase;
 use Strictify\Lazy\ResolvedIterable;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class LazyListInterfaceTest extends TestCase
 {
     public function testLazyList(): void

@@ -5,23 +5,26 @@ declare(strict_types=1);
 namespace Strictify\Lazy;
 
 use Closure;
-use Strictify\Lazy\Contract\AbstractLazy;
+use Strictify\Lazy\Contract\AbstractResolvable;
 use Strictify\Lazy\Contract\LazyIterableInterface;
 
 /**
  * @template-covariant T
  *
- * @extends AbstractLazy<iterable<array-key, T>>
+ * @extends AbstractResolvable<iterable<array-key, T>>
  *
  * @implements LazyIterableInterface<T>
  */
-class LazyIterable extends AbstractLazy implements LazyIterableInterface
+class LazyIterable extends AbstractResolvable implements LazyIterableInterface
 {
     /**
      * @param Closure(): iterable<array-key, T> $resolver
+     *
+     * @noinspection SenselessProxyMethodInspection : bug in psalm
      */
-    public function __construct(private Closure $resolver)
+    public function __construct(Closure $resolver)
     {
+        parent::__construct($resolver);
     }
 
     public function getValues(): iterable
@@ -32,10 +35,5 @@ class LazyIterable extends AbstractLazy implements LazyIterableInterface
     public function getIterator(): iterable
     {
         yield from $this->getValues();
-    }
-
-    protected function getResolver(): Closure
-    {
-        return $this->resolver;
     }
 }

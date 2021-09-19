@@ -8,6 +8,9 @@ use Strictify\Lazy\LazyValue;
 use PHPUnit\Framework\TestCase;
 use Strictify\Lazy\ResolvedValue;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class LazyValueInterfaceTest extends TestCase
 {
     public function testLazyValue(): void

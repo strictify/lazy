@@ -15,11 +15,4 @@
     </ignoreFiles>
   </projectFiles>
 
-  <issueHandlers>
-    <PropertyNotSetInConstructor>
-      <errorLevel type="suppress">
-        <directory name="tests/unit"/>
-      </errorLevel>
-    </PropertyNotSetInConstructor>
-  </issueHandlers>
 </psalm>

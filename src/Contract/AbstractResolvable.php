@@ -10,12 +10,19 @@ use Strictify\Lazy\Store\Store;
 /**
  * @template-covariant T
  */
-abstract class AbstractLazy
+abstract class AbstractResolvable
 {
     /**
      * @var ?Store<T>
      */
     private ?Store $store = null;
+
+    /**
+     * @param Closure(): T $resolver
+     */
+    public function __construct(private Closure $resolver)
+    {
+    }
 
     public function isResolved(): bool
     {
@@ -23,14 +30,9 @@ abstract class AbstractLazy
     }
 
     /**
-     * @return Closure(): T
-     */
-    abstract protected function getResolver(): Closure;
-
-    /**
      * @return T
      */
-    protected function getResolvedValue()
+    public function getResolvedValue()
     {
         $store = $this->store ??= $this->doGetStore();
 
@@ -42,8 +44,8 @@ abstract class AbstractLazy
      */
     private function doGetStore(): Store
     {
-        $callable = $this->getResolver();
-        $value = $callable();
+        $resolver = $this->resolver;
+        $value = $resolver();
 
         return new Store($value);
     }
