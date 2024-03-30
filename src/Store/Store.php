@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Strictify\Lazy\Store;
 
 /**
- * This should not be used outside of LazyValue class.
+ * This should not be used outside LazyValue class.
  *
- * @template-covariant  T
+ * @template  T
  *
  * @internal
  * @psalm-internal Strictify\Lazy

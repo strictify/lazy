@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Strictify\Lazy\Contract;
 
-use Closure;
 use Strictify\Lazy\Store\Store;
 
 /**
- * @template-covariant T
+ * @template T
+ *
+ * @implements LazyValueInterface<T>
  */
-abstract class AbstractResolvable
+abstract class AbstractLazyValue implements LazyValueInterface
 {
     /**
      * @var ?Store<T>
@@ -18,9 +19,11 @@ abstract class AbstractResolvable
     private ?Store $store = null;
 
     /**
-     * @param Closure(): T $resolver
+     * @param callable(): T $resolver
+     *
+     * @noinspection PhpMissingParamTypeInspection  https://wiki.php.net/rfc/constructor_promotion#constraints - `callable` cannot be typehinted in promoted properties
      */
-    public function __construct(private Closure $resolver)
+    public function __construct(private $resolver)
     {
     }
 
@@ -32,7 +35,7 @@ abstract class AbstractResolvable
     /**
      * @return T
      */
-    public function getResolvedValue()
+    public function getValue()
     {
         $store = $this->store ??= $this->doGetStore();
 
