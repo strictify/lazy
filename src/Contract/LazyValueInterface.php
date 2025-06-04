@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Strictify\Lazy\Contract;
 
 /**
- * @template T
+ * @template-covariant T
  */
 interface LazyValueInterface
 {
